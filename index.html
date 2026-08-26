@@ -164,7 +164,7 @@
   }
   .btn-add{
     width:100%; padding:13px; margin-top:4px;
-    background:var(--olive); color:#fff;
+    background:var(--sea-deep); color:#fff;
   }
   .btn-add:active{ transform:translateY(1px); }
   .btn-submit{
@@ -216,14 +216,13 @@
 
   /* ---------- 締切バナー ---------- */
   .deadline-banner{
-    display:flex; align-items:center; gap:12px;
+    display:block; text-align:center;
     background:linear-gradient(135deg, var(--sea-deep), var(--sea));
     color:#fff; border-radius:var(--radius);
     padding:16px 18px; margin:20px 0 0;
   }
-  .deadline-banner .icon{ font-size:1.7rem; flex:0 0 auto; }
-  .deadline-banner .label{ font-size:.72rem; letter-spacing:.14em; opacity:.85; }
-  .deadline-banner .date{ font-size:1.15rem; font-weight:900; font-family:'Zen Old Mincho', serif; }
+  .deadline-banner .label{ font-size:.74rem; letter-spacing:.16em; opacity:.9; font-weight:700; }
+  .deadline-banner .date{ font-size:1.3rem; font-weight:900; font-family:'Zen Old Mincho', serif; margin-top:4px; }
 
   footer{ text-align:center; color:#9aa5ad; font-size:.78rem; padding:30px 0 40px; }
 
@@ -262,11 +261,8 @@
   </div>
 
   <div class="deadline-banner">
-    <span class="icon">⏰</span>
-    <div>
-      <div class="label">事前受付 締切</div>
-      <div class="date">9月1日（火）20:00 まで</div>
-    </div>
+    <div class="label">事前受付 締切</div>
+    <div class="date">9月1日（火）20:00 まで</div>
   </div>
 
   <!-- ============ ギャラリー ============ -->
@@ -379,10 +375,13 @@
 
   <!-- ============ 完了画面 ============ -->
   <div class="card done" id="doneBox">
-    <div class="icon">🌊</div>
     <h3>ご注文ありがとうございます</h3>
     <p>以下の内容で受付いたしました。お振込にてお支払いをお願いします。</p>
     <div class="bank-box" id="orderSummaryBox"></div>
+    <div class="bank-box">
+      <p style="margin:0 0 10px; font-weight:700; color:var(--sea-deep);">受け渡し方法</p>
+      <p style="margin:0;">イベント当日に受付にてお渡し</p>
+    </div>
     <div class="bank-box">
       <p style="margin:0 0 10px; font-weight:700; color:var(--sea-deep);">ゆうちょ銀行からお振り込みの場合</p>
       <dl>
