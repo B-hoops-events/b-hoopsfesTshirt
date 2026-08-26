@@ -97,9 +97,16 @@
     background:var(--sand);
     display:flex; align-items:center; justify-content:center;
     border:1px solid #e6dcc4;
+    position:relative;
   }
   .gallery-slide img{ width:100%; height:auto; display:block; object-fit:contain; }
   .gallery-slide .ph{ text-align:center; color:#8a7d5c; font-size:.85rem; padding:40px 18px; }
+  .slide-label{
+    position:absolute; top:10px; left:10px;
+    background:rgba(18,60,86,.85); color:#fff;
+    font-size:.74rem; font-weight:700; letter-spacing:.05em;
+    padding:4px 12px; border-radius:999px;
+  }
   .gallery-slide .ph .tee{ font-size:2.4rem; display:block; margin-bottom:8px; }
   .gallery-caption{
     text-align:center; margin-top:10px;
@@ -269,10 +276,10 @@
         ★写真を差し替える場合は src を変更してください。
         リポジトリ直下にナチュラル2枚・スミクロ2枚を置いています。
       -->
-      <div class="gallery-slide"><img src="tshirt-natural-1.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 前面・背面"></div>
-      <div class="gallery-slide"><img src="tshirt-natural-2.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 着用イメージ"></div>
-      <div class="gallery-slide"><img src="tshirt-sumikuro-1.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 前面・背面"></div>
-      <div class="gallery-slide"><img src="tshirt-sumikuro-2.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 着用イメージ"></div>
+      <div class="gallery-slide"><span class="slide-label">ナチュラル</span><img src="tshirt-natural-1.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 前面・背面"></div>
+      <div class="gallery-slide"><span class="slide-label">ナチュラル</span><img src="tshirt-natural-2.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 着用イメージ"></div>
+      <div class="gallery-slide"><span class="slide-label">スミクロ</span><img src="tshirt-sumikuro-1.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 前面・背面"></div>
+      <div class="gallery-slide"><span class="slide-label">スミクロ</span><img src="tshirt-sumikuro-2.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 着用イメージ"></div>
     </div>
     <div class="dots" id="galleryDots"></div>
     <div class="gallery-caption"><span class="image-notice">※写真はイメージです</span></div>
