@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>牛窓フェス2026 オリジナルTシャツ受付</title>
+<meta name="description" content="牛窓フェス2026 オリジナルTシャツの事前受付サイトです。">
+
+<!-- ============================================================
+  ★設定はこの<style>より下、<script>内の CONFIG オブジェクトに
+  まとめてあります。まずはそこだけ編集すればOKです。
+============================================================= -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap');
+
+  :root{
+    --sea-deep:#123c56;
+    --sea:#2a7ba3;
+    --sea-light:#a9d3e3;
+    --whitewash:#fbfaf5;
+    --sand:#efe4cd;
+    --olive:#707c4f;
+    --sun:#e8a33d;
+    --ink:#1c2733;
+    --danger:#c0503f;
+    --radius:14px;
+    --maxw:640px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--whitewash);
+    color:var(--ink);
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  h1,h2,h3{font-family:'Zen Old Mincho', serif; margin:0 0 .4em;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+
+  /* ---------- バナー（画像はユーザー側で用意） ---------- */
+  .banner{
+    width:100%;
+    aspect-ratio:16/7;
+    background:
+      radial-gradient(circle at 85% 15%, var(--sun) 0 60px, transparent 61px),
+      linear-gradient(180deg, var(--sea-light) 0%, var(--sea) 55%, var(--sea-deep) 100%);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
+  .banner img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .banner .banner-fallback-text{
+    position:relative;
+    color:var(--whitewash);
+    text-align:center;
+    padding-bottom:22px;
+    text-shadow:0 2px 10px rgba(0,0,0,.25);
+  }
+  .banner .banner-fallback-text .en{
+    display:block; font-size:.72rem; letter-spacing:.28em; opacity:.85; margin-bottom:6px;
+  }
+  .banner .banner-fallback-text h1{ font-size:1.9rem; margin:0; }
+
+  /* 波の仕切り（サイン要素） */
+  .wave{ display:block; width:100%; height:34px; }
+  .wave path{ fill:var(--whitewash); }
+
+  /* ---------- ヒーロー文言 ---------- */
+  .lede{ text-align:center; padding:28px 0 6px; }
+  .lede .eyebrow{
+    display:inline-block; font-size:.72rem; letter-spacing:.22em; color:var(--sea);
+    border:1px solid var(--sea-light); border-radius:999px; padding:4px 14px; margin-bottom:14px;
+  }
+  .lede h2{ font-size:1.5rem; color:var(--sea-deep); }
+  .lede p{ color:#4c5a66; font-size:.94rem; }
+
+  /* ---------- ギャラリー（スワイプ） ---------- */
+  .gallery{ margin:26px 0 8px; }
+  .gallery-track{
+    display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; padding:4px 4px 14px;
+    scrollbar-width:none;
+  }
+  .gallery-track::-webkit-scrollbar{ display:none; }
+  .gallery-slide{
+    flex:0 0 82%; scroll-snap-align:center;
+    border-radius:var(--radius); overflow:hidden;
+    background:var(--sand);
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid #e6dcc4;
+  }
+  .gallery-slide img{ width:100%; height:100%; object-fit:cover; }
+  .gallery-slide .ph{ text-align:center; color:#8a7d5c; font-size:.85rem; padding:0 18px; }
+  .gallery-slide .ph .tee{ font-size:2.4rem; display:block; margin-bottom:8px; }
+  .gallery-caption{
+    text-align:center; margin-top:10px;
+  }
+  .gallery-caption .image-notice{
+    display:inline-block; font-weight:900; font-size:.86rem; color:#fff;
+    background:var(--danger); padding:4px 14px; border-radius:999px; letter-spacing:.04em;
+  }
+  .dots{ display:flex; justify-content:center; gap:7px; margin-top:2px; }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--sea-light); transition:.2s; }
+  .dot.active{ background:var(--sea-deep); width:20px; border-radius:5px; }
+
+  /* ---------- セクション共通 ---------- */
+  .card{
+    background:#fff; border:1px solid #e9e2cf; border-radius:var(--radius);
+    padding:22px 20px; margin:18px 0;
+  }
+  .card h3{ font-size:1.05rem; color:var(--sea-deep); display:flex; align-items:center; gap:8px; }
+  .card h3 .num{
+    font-family:'Zen Old Mincho', serif; font-size:.85rem; color:#fff;
+    background:var(--sea); width:24px; height:24px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+
+  /* ---------- カラースウォッチ ---------- */
+  .color-options{ display:flex; gap:10px; margin:10px 0 18px; }
+  .color-opt{
+    flex:1; border:1.5px solid #ddd3b8; border-radius:10px; padding:12px 10px;
+    text-align:center; cursor:pointer; font-size:.88rem; user-select:none;
+    background:#fffdf8; transition:.15s;
+  }
+  .color-opt .swatch{
+    width:26px; height:26px; border-radius:50%; margin:0 auto 8px;
+    border:1px solid rgba(0,0,0,.12);
+  }
+  .color-opt[data-color="ナチュラル"] .swatch{ background:#f3ead9; }
+  .color-opt[data-color="スミクロ"] .swatch{ background:#2b2b2b; }
+  .color-opt.selected{ border-color:var(--sea); background:#eef7fb; box-shadow:0 0 0 1px var(--sea) inset; }
+
+  /* ---------- フォーム部品 ---------- */
+  label{ display:block; font-size:.82rem; color:#5a6773; margin-bottom:6px; font-weight:500; }
+  select, input, textarea{
+    width:100%; padding:12px 12px; border:1.5px solid #ddd3b8; border-radius:10px;
+    font-size:1rem; font-family:inherit; background:#fffdf8; color:var(--ink);
+  }
+  select:focus, input:focus, textarea:focus{ outline:2px solid var(--sea-light); border-color:var(--sea); }
+  .row{ display:flex; gap:10px; }
+  .row > div{ flex:1; }
+  .row.qty > div:last-child{ flex:0 0 92px; }
+  .field{ margin-bottom:14px; }
+
+  button{
+    font-family:inherit; cursor:pointer; border:none; border-radius:10px;
+    font-size:.98rem; font-weight:700; letter-spacing:.02em;
+  }
+  .btn-add{
+    width:100%; padding:13px; margin-top:4px;
+    background:var(--olive); color:#fff;
+  }
+  .btn-add:active{ transform:translateY(1px); }
+  .btn-submit{
+    width:100%; padding:16px; margin-top:6px;
+    background:var(--sea-deep); color:#fff; font-size:1.05rem;
+  }
+  .btn-submit:disabled{ background:#a9b3ba; cursor:not-allowed; }
+  .btn-remove{
+    background:none; border:none; color:var(--danger); font-size:1.1rem; padding:2px 6px; line-height:1;
+  }
+
+  /* ---------- カート ---------- */
+  .cart{ margin-top:18px; border-top:1px dashed #ddd3b8; padding-top:14px; }
+  .cart-empty{ color:#9aa5ad; font-size:.88rem; text-align:center; padding:10px 0; }
+  .cart-item{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:9px 0; border-bottom:1px solid #f1ead8; font-size:.92rem;
+  }
+  .cart-item:last-child{ border-bottom:none; }
+  .cart-item .meta{ color:var(--ink); }
+  .cart-item .meta .sub{ color:#8a8f7f; font-size:.8rem; margin-left:6px;}
+  .cart-total{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:10px; padding-top:12px; border-top:1.5px solid var(--sea-deep);
+    font-size:1.05rem;
+  }
+  .cart-total b{ font-size:1.3rem; color:var(--sea-deep); }
+
+  /* ---------- 注意書き ---------- */
+  .notes{ font-size:.82rem; color:#6a7480; }
+  .notes li{ margin-bottom:4px; }
+
+  .error-box{
+    background:#fdecea; border:1px solid #f2c4bc; color:var(--danger);
+    padding:10px 14px; border-radius:10px; font-size:.85rem; margin-bottom:14px; display:none;
+  }
+
+  /* ---------- 完了画面 ---------- */
+  .done{ display:none; text-align:center; }
+  .done .icon{ font-size:2.6rem; margin-bottom:6px; }
+  .done h3{ color:var(--sea-deep); }
+  .bank-box{
+    text-align:left; background:var(--whitewash); border:1px solid #e6dcc4;
+    border-radius:10px; padding:16px 18px; margin:16px 0; font-size:.9rem;
+  }
+  .bank-box dl{ display:grid; grid-template-columns:6em 1fr; gap:6px 10px; margin:0; }
+  .bank-box dt{ color:#8a7d5c; }
+  .bank-box dd{ margin:0; font-weight:700; }
+
+  /* ---------- 締切バナー ---------- */
+  .deadline-banner{
+    display:flex; align-items:center; gap:12px;
+    background:linear-gradient(135deg, var(--sea-deep), var(--sea));
+    color:#fff; border-radius:var(--radius);
+    padding:16px 18px; margin:20px 0 0;
+  }
+  .deadline-banner .icon{ font-size:1.7rem; flex:0 0 auto; }
+  .deadline-banner .label{ font-size:.72rem; letter-spacing:.14em; opacity:.85; }
+  .deadline-banner .date{ font-size:1.15rem; font-weight:900; font-family:'Zen Old Mincho', serif; }
+
+  footer{ text-align:center; color:#9aa5ad; font-size:.78rem; padding:30px 0 40px; }
+
+  /* ---------- サイズ表 ---------- */
+  .size-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:6px; }
+  table.size-table{
+    border-collapse:collapse; width:100%; min-width:480px; font-size:.86rem;
+  }
+  table.size-table th, table.size-table td{
+    border:1px solid #e6dcc4; padding:8px 10px; text-align:center; white-space:nowrap;
+  }
+  table.size-table thead th{ background:var(--sand); color:var(--ink); font-weight:700; }
+  table.size-table th:first-child, table.size-table td:first-child{
+    text-align:left; background:#fffdf8; color:#5a6773; font-weight:500; white-space:nowrap;
+  }
+  table.size-table td.kids, table.size-table th.kids{ background:#fbf3e2; }
+  .size-note{ font-size:.78rem; color:#8a7d5c; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<!-- ============ バナー ============ -->
+<div class="banner">
+  <img src="images/banner.jpg" alt="B.hoops 牛窓フェス2026">
+</div>
+<svg class="wave" viewBox="0 0 400 24" preserveAspectRatio="none"><path d="M0 14 Q50 24 100 14 T200 14 T300 14 T400 14 V24 H0 Z"></path></svg>
+
+<div class="wrap">
+
+  <div class="lede">
+    <span class="eyebrow">ORDER FORM</span>
+    <h2>オリジナルTシャツ 事前受付</h2>
+    <p>牛窓フェス2026オリジナルTシャツの事前受付です。<br>
+       このページで色・サイズ・枚数を選んで注文を確定してください。<br>
+       お支払いは<b>お振込</b>のみとなります（決済はこの場では行いません）。</p>
+  </div>
+
+  <div class="deadline-banner">
+    <span class="icon">⏰</span>
+    <div>
+      <div class="label">事前受付 締切</div>
+      <div class="date">9月1日（火）20:00 まで</div>
+    </div>
+  </div>
+
+  <!-- ============ ギャラリー ============ -->
+  <div class="gallery">
+    <div class="gallery-track" id="galleryTrack">
+      <!--
+        ★写真を差し替える場合は src を変更してください。
+        images/ フォルダにナチュラル2枚・スミクロ2枚を入れています。
+      -->
+      <div class="gallery-slide"><img src="images/tshirt-natural-1.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 前面・背面"></div>
+      <div class="gallery-slide"><img src="images/tshirt-natural-2.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 着用イメージ"></div>
+      <div class="gallery-slide"><img src="images/tshirt-sumikuro-1.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 前面・背面"></div>
+      <div class="gallery-slide"><img src="images/tshirt-sumikuro-2.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 着用イメージ"></div>
+    </div>
+    <div class="dots" id="galleryDots"></div>
+    <div class="gallery-caption"><span class="image-notice">※写真はイメージです</span></div>
+  </div>
+
+  <!-- ============ 注文内容 ============ -->
+  <div class="card">
+    <h3><span class="num">1</span>色・サイズ・枚数を選ぶ</h3>
+
+    <label>カラー</label>
+    <div class="color-options" id="colorOptions">
+      <div class="color-opt selected" data-color="ナチュラル"><div class="swatch"></div>ナチュラル</div>
+      <div class="color-opt" data-color="スミクロ"><div class="swatch"></div>スミクロ</div>
+    </div>
+
+    <div class="row qty">
+      <div class="field">
+        <label for="sizeSelect">サイズ</label>
+        <select id="sizeSelect">
+          <option value="">選択してください</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="qtyInput">枚数</label>
+        <input type="number" id="qtyInput" min="1" max="20" value="1">
+      </div>
+    </div>
+
+    <button class="btn-add" id="addBtn">この内容をカートに追加</button>
+
+    <div class="cart" id="cartWrap">
+      <div class="cart-empty" id="cartEmpty">まだ商品が追加されていません</div>
+      <div id="cartList"></div>
+      <div class="cart-total" id="cartTotal" style="display:none;">
+        <span>合計</span>
+        <span><b id="cartTotalYen">¥0</b>（<span id="cartTotalCount">0</span>枚）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ サイズ表 ============ -->
+  <div class="card">
+    <h3>サイズ詳細</h3>
+    <div class="size-scroll">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>SIZE</th>
+            <th class="kids">110</th>
+            <th class="kids">130</th>
+            <th class="kids">150</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>XL</th>
+            <th>XXL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>身丈(cm)</td><td class="kids">45</td><td class="kids">53</td><td class="kids">59</td><td>65</td><td>68</td><td>71</td><td>74</td><td>77</td></tr>
+          <tr><td>身幅(cm)</td><td class="kids">35</td><td class="kids">39</td><td class="kids">43</td><td>48</td><td>52</td><td>56</td><td>60</td><td>64</td></tr>
+          <tr><td>肩幅(cm)</td><td class="kids">29</td><td class="kids">33</td><td class="kids">37</td><td>43</td><td>46</td><td>49</td><td>52</td><td>55</td></tr>
+          <tr><td>袖丈(cm)</td><td class="kids">13</td><td class="kids">15</td><td class="kids">17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td></tr>
+          <tr><td>胴仕様</td><td colspan="8">丸胴</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="size-note">※横にスクロールしてご確認いただけます。110〜150はキッズサイズです。</p>
+  </div>
+
+  <!-- ============ お客様情報 ============ -->
+  <div class="card">
+    <h3><span class="num">2</span>お客様情報を入力</h3>
+    <div class="error-box" id="errorBox"></div>
+
+    <div class="field">
+      <label for="nameInput">お名前</label>
+      <input type="text" id="nameInput" placeholder="例）牛窓 太郎">
+    </div>
+    <div class="field">
+      <label for="contactInput">ご連絡先（電話番号 または メールアドレス）</label>
+      <input type="text" id="contactInput" placeholder="例）090-xxxx-xxxx / example@mail.com">
+    </div>
+    <div class="field">
+      <label for="noteInput">備考（任意）</label>
+      <textarea id="noteInput" rows="2" placeholder="受け渡し方法のご希望など"></textarea>
+    </div>
+
+    <button class="btn-submit" id="submitBtn">この内容で注文する</button>
+    <p class="notes" style="margin-top:12px;">
+      <ul>
+        <li>注文確定後、お振込先の情報が画面に表示されます。</li>
+        <li>ご入力内容に誤りがないかご確認のうえ送信してください。</li>
+      </ul>
+    </p>
+  </div>
+
+  <!-- ============ 完了画面 ============ -->
+  <div class="card done" id="doneBox">
+    <div class="icon">🌊</div>
+    <h3>ご注文ありがとうございます</h3>
+    <p>以下の内容で受付いたしました。お振込にてお支払いをお願いします。</p>
+    <div class="bank-box" id="orderSummaryBox"></div>
+    <div class="bank-box">
+      <!-- ★振込先情報をここに入力してください -->
+      <dl>
+        <dt>銀行名</dt><dd>〇〇銀行 〇〇支店</dd>
+        <dt>種別</dt><dd>普通</dd>
+        <dt>口座番号</dt><dd>0000000</dd>
+        <dt>名義</dt><dd>ウシマドフェスジッコウイインカイ</dd>
+        <dt>期限</dt><dd>2026年〇月〇日まで</dd>
+      </dl>
+    </div>
+    <p class="notes">振込名義は<b>ご注文者名</b>でお願いします。ご不明点はお問い合わせください。</p>
+  </div>
+
+</div>
+
+<footer>牛窓フェス2026 実行委員会</footer>
+
+<script>
+/* ============================================================
+   ★設定（まずはここだけ確認・編集してください）
+============================================================= */
+const CONFIG = {
+  // Googleフォーム経由ではなく、Google Apps Script（GAS）で
+  // 注文データをスプレッドシートに送ります。
+  // 下記手順で発行したウェブアプリのURLをここに貼ってください。
+  //   1. Googleスプレッドシートを新規作成
+  //   2. 拡張機能 > Apps Script を開く
+  //   3. 付属の apps-script.gs の中身を貼り付けて保存
+  //   4. 「デプロイ」>「新しいデプロイ」>種類「ウェブアプリ」
+  //      実行ユーザー：自分／アクセスできるユーザー：全員
+  //   5. 発行されたURLをここにセット
+  GAS_URL: "",
+
+  // Tシャツ1枚あたりの価格（円）
+  PRICE: 6800,
+
+  // 選べるサイズ
+  SIZES: ["110","130","150","S","M","L","XL","XXL"]
+};
+
+/* ============================================================
+   ここから下は基本的に編集不要です
+============================================================= */
+
+// サイズのプルダウンを生成
+const sizeSelect = document.getElementById('sizeSelect');
+CONFIG.SIZES.forEach(s=>{
+  const opt = document.createElement('option');
+  opt.value = s; opt.textContent = s + (["110","130","150"].includes(s) ? "（キッズ）" : "");
+  sizeSelect.appendChild(opt);
+});
+
+// カラー選択
+let selectedColor = "ナチュラル";
+document.querySelectorAll('.color-opt').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    document.querySelectorAll('.color-opt').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedColor = el.dataset.color;
+  });
+});
+
+// カート
+let cart = [];
+const cartList = document.getElementById('cartList');
+const cartEmpty = document.getElementById('cartEmpty');
+const cartTotal = document.getElementById('cartTotal');
+const cartTotalYen = document.getElementById('cartTotalYen');
+const cartTotalCount = document.getElementById('cartTotalCount');
+
+function renderCart(){
+  cartList.innerHTML = "";
+  if(cart.length === 0){
+    cartEmpty.style.display = "block";
+    cartTotal.style.display = "none";
+    return;
+  }
+  cartEmpty.style.display = "none";
+  cartTotal.style.display = "flex";
+  let totalYen = 0, totalCount = 0;
+  cart.forEach((item, idx)=>{
+    totalYen += item.qty * CONFIG.PRICE;
+    totalCount += item.qty;
+    const row = document.createElement('div');
+    row.className = 'cart-item';
+    row.innerHTML = `
+      <span class="meta">${item.color} / ${item.size} <span class="sub">× ${item.qty}枚</span></span>
+      <span>
+        <span class="sub">¥${(item.qty*CONFIG.PRICE).toLocaleString()}</span>
+        <button class="btn-remove" data-idx="${idx}" aria-label="削除">×</button>
+      </span>`;
+    cartList.appendChild(row);
+  });
+  cartTotalYen.textContent = "¥" + totalYen.toLocaleString();
+  cartTotalCount.textContent = totalCount;
+
+  cartList.querySelectorAll('.btn-remove').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      cart.splice(Number(btn.dataset.idx), 1);
+      renderCart();
+    });
+  });
+}
+
+document.getElementById('addBtn').addEventListener('click', ()=>{
+  const size = sizeSelect.value;
+  const qty = Math.max(1, Math.min(20, Number(document.getElementById('qtyInput').value) || 1));
+  if(!size){
+    showError("サイズを選択してください");
+    return;
+  }
+  clearError();
+  // 同じ色×サイズが既にあれば数量を合算
+  const existing = cart.find(c=>c.color===selectedColor && c.size===size);
+  if(existing){ existing.qty += qty; } else { cart.push({color:selectedColor, size, qty}); }
+  renderCart();
+  sizeSelect.value = "";
+  document.getElementById('qtyInput').value = 1;
+});
+
+renderCart();
+
+// エラー表示
+const errorBox = document.getElementById('errorBox');
+function showError(msg){ errorBox.textContent = msg; errorBox.style.display = "block"; errorBox.scrollIntoView({behavior:"smooth", block:"center"}); }
+function clearError(){ errorBox.style.display = "none"; }
+
+// 送信
+const submitBtn = document.getElementById('submitBtn');
+submitBtn.addEventListener('click', async ()=>{
+  clearError();
+  const name = document.getElementById('nameInput').value.trim();
+  const contact = document.getElementById('contactInput').value.trim();
+  const note = document.getElementById('noteInput').value.trim();
+
+  if(cart.length === 0){ showError("カートに商品が入っていません。サイズ・枚数を選んで「カートに追加」してください。"); return; }
+  if(!name){ showError("お名前を入力してください。"); return; }
+  if(!contact){ showError("ご連絡先を入力してください。"); return; }
+  if(!CONFIG.GAS_URL){ showError("送信先が未設定です（サイト管理者向け：CONFIG.GAS_URLを設定してください）。"); return; }
+
+  const itemsText = cart.map(i=>`${i.color}/${i.size}×${i.qty}`).join('、');
+  const total = cart.reduce((sum,i)=>sum + i.qty*CONFIG.PRICE, 0);
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "送信中…";
+
+  try{
+    await fetch(CONFIG.GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ name, contact, note, itemsText, total })
+    });
+
+    // 完了画面
+    document.getElementById('orderSummaryBox').innerHTML = `
+      <dl>
+        <dt>お名前</dt><dd>${escapeHtml(name)}</dd>
+        <dt>注文内容</dt><dd>${escapeHtml(itemsText)}</dd>
+        <dt>合計金額</dt><dd>¥${total.toLocaleString()}</dd>
+      </dl>`;
+    document.querySelectorAll('.card').forEach(c=>{ if(c.id !== 'doneBox') c.style.display = 'none'; });
+    document.getElementById('doneBox').style.display = 'block';
+    document.getElementById('doneBox').scrollIntoView({behavior:"smooth"});
+  }catch(err){
+    showError("送信中にエラーが発生しました。通信環境をご確認のうえ、もう一度お試しください。");
+    submitBtn.disabled = false;
+    submitBtn.textContent = "この内容で注文する";
+  }
+});
+
+function escapeHtml(str){
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// ギャラリーのドット
+const track = document.getElementById('galleryTrack');
+const dotsWrap = document.getElementById('galleryDots');
+const slides = track.querySelectorAll('.gallery-slide');
+slides.forEach((_, i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0 ? ' active' : '');
+  dotsWrap.appendChild(d);
+});
+let scrollTimer;
+track.addEventListener('scroll', ()=>{
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(()=>{
+    const slideWidth = slides[0].getBoundingClientRect().width + 12;
+    const idx = Math.round(track.scrollLeft / slideWidth);
+    dotsWrap.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active', i===idx));
+  }, 60);
+});
+</script>
+</body>
+</html>
