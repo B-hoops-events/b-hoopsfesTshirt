@@ -95,12 +95,11 @@
     flex:0 0 82%; scroll-snap-align:center;
     border-radius:var(--radius); overflow:hidden;
     background:var(--sand);
-    aspect-ratio:1/1;
     display:flex; align-items:center; justify-content:center;
     border:1px solid #e6dcc4;
   }
-  .gallery-slide img{ width:100%; height:100%; object-fit:cover; }
-  .gallery-slide .ph{ text-align:center; color:#8a7d5c; font-size:.85rem; padding:0 18px; }
+  .gallery-slide img{ width:100%; height:auto; display:block; object-fit:contain; }
+  .gallery-slide .ph{ text-align:center; color:#8a7d5c; font-size:.85rem; padding:40px 18px; }
   .gallery-slide .ph .tee{ font-size:2.4rem; display:block; margin-bottom:8px; }
   .gallery-caption{
     text-align:center; margin-top:10px;
@@ -241,7 +240,7 @@
 
 <!-- ============ バナー ============ -->
 <div class="banner">
-  <img src="images/banner.jpg" alt="B.hoops 牛窓フェス2026">
+  <img src="banner.jpg" alt="B.hoops 牛窓フェス2026">
 </div>
 <svg class="wave" viewBox="0 0 400 24" preserveAspectRatio="none"><path d="M0 14 Q50 24 100 14 T200 14 T300 14 T400 14 V24 H0 Z"></path></svg>
 
@@ -268,12 +267,12 @@
     <div class="gallery-track" id="galleryTrack">
       <!--
         ★写真を差し替える場合は src を変更してください。
-        images/ フォルダにナチュラル2枚・スミクロ2枚を入れています。
+        リポジトリ直下にナチュラル2枚・スミクロ2枚を置いています。
       -->
-      <div class="gallery-slide"><img src="images/tshirt-natural-1.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 前面・背面"></div>
-      <div class="gallery-slide"><img src="images/tshirt-natural-2.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 着用イメージ"></div>
-      <div class="gallery-slide"><img src="images/tshirt-sumikuro-1.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 前面・背面"></div>
-      <div class="gallery-slide"><img src="images/tshirt-sumikuro-2.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 着用イメージ"></div>
+      <div class="gallery-slide"><img src="tshirt-natural-1.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 前面・背面"></div>
+      <div class="gallery-slide"><img src="tshirt-natural-2.jpg" alt="牛窓フェス2026 Tシャツ ナチュラル 着用イメージ"></div>
+      <div class="gallery-slide"><img src="tshirt-sumikuro-1.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 前面・背面"></div>
+      <div class="gallery-slide"><img src="tshirt-sumikuro-2.jpg" alt="牛窓フェス2026 Tシャツ スミクロ 着用イメージ"></div>
     </div>
     <div class="dots" id="galleryDots"></div>
     <div class="gallery-caption"><span class="image-notice">※写真はイメージです</span></div>
@@ -378,16 +377,24 @@
     <p>以下の内容で受付いたしました。お振込にてお支払いをお願いします。</p>
     <div class="bank-box" id="orderSummaryBox"></div>
     <div class="bank-box">
-      <!-- ★振込先情報をここに入力してください -->
+      <p style="margin:0 0 10px; font-weight:700; color:var(--sea-deep);">ゆうちょ銀行からお振り込みの場合</p>
       <dl>
-        <dt>銀行名</dt><dd>〇〇銀行 〇〇支店</dd>
-        <dt>種別</dt><dd>普通</dd>
-        <dt>口座番号</dt><dd>0000000</dd>
-        <dt>名義</dt><dd>ウシマドフェスジッコウイインカイ</dd>
-        <dt>期限</dt><dd>2026年〇月〇日まで</dd>
+        <dt>記号</dt><dd>14090</dd>
+        <dt>番号</dt><dd>80128931</dd>
+        <dt>口座名義</dt><dd>ド)ブロッサムスクール</dd>
       </dl>
+      <p style="margin:16px 0 10px; font-weight:700; color:var(--sea-deep);">他銀行からお振り込みの場合</p>
+      <dl>
+        <dt>銀行名</dt><dd>ゆうちょ銀行</dd>
+        <dt>支店名</dt><dd>四〇八（ヨンゼロハチ）</dd>
+        <dt>種別</dt><dd>普通</dd>
+        <dt>口座番号</dt><dd>8012893</dd>
+        <dt>口座名義</dt><dd>ド)ブロッサムスクール</dd>
+      </dl>
+      <p style="margin:16px 0 0; font-weight:700; color:var(--sea-deep);">振込期限</p>
+      <p style="margin:2px 0 0; font-size:1.1rem; font-weight:900;">9月4日（金）まで</p>
     </div>
-    <p class="notes">振込名義は<b>ご注文者名</b>でお願いします。ご不明点はお問い合わせください。</p>
+    <p class="notes">振込名義は<b>ご注文者名</b>でお願いします。※期日までにお振り込みの確認ができない場合のみ、ご連絡させていただきます。</p>
   </div>
 
 </div>
@@ -519,6 +526,7 @@ submitBtn.addEventListener('click', async ()=>{
 
   const itemsText = cart.map(i=>`${i.color}/${i.size}×${i.qty}`).join('、');
   const total = cart.reduce((sum,i)=>sum + i.qty*CONFIG.PRICE, 0);
+  const orderId = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
 
   submitBtn.disabled = true;
   submitBtn.textContent = "送信中…";
@@ -528,7 +536,10 @@ submitBtn.addEventListener('click', async ()=>{
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ name, contact, note, itemsText, total })
+      body: JSON.stringify({
+        orderId, name, contact, note, total,
+        items: cart.map(i => ({ color: i.color, size: i.size, qty: i.qty, subtotal: i.qty * CONFIG.PRICE }))
+      })
     });
 
     // 完了画面
