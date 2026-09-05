@@ -242,6 +242,22 @@
   }
   table.size-table td.kids, table.size-table th.kids{ background:#fbf3e2; }
   .size-note{ font-size:.78rem; color:#8a7d5c; margin-top:8px; }
+
+  /* ---------- 受付終了バナー ---------- */
+  .closed-banner{
+    display:none;
+    text-align:center;
+    background:#4a4640; color:#fff;
+    border-radius:var(--radius);
+    padding:18px 20px; margin:20px 0 0;
+  }
+  .closed-banner .label{ font-size:.78rem; letter-spacing:.18em; opacity:.85; font-weight:700; }
+  .closed-banner .msg{ font-size:1.25rem; font-weight:900; font-family:'Zen Old Mincho', serif; margin-top:6px; }
+  .closed-banner p{ font-size:.85rem; color:#e3ddd0; margin:8px 0 0; }
+  .is-closed select, .is-closed input, .is-closed textarea{ background:#eee9dc; color:#9aa0a3; }
+  .is-closed .btn-add, .is-closed .btn-submit{
+    background:#a9b3ba !important; cursor:not-allowed;
+  }
 </style>
 </head>
 <body>
@@ -262,7 +278,14 @@
        お支払いは<b>お振込</b>のみとなります（決済はこの場では行いません）。</p>
   </div>
 
-  <div class="deadline-banner">
+  <!-- ============ 受付終了バナー（CONFIG.ACCEPTING_ORDERSがfalseの時だけ表示） ============ -->
+  <div class="closed-banner" id="closedBanner">
+    <div class="label">NOTICE</div>
+    <div class="msg">ただいま受付は終了しております</div>
+    <p>牛窓フェス2026 Tシャツの事前受付は締め切りました。<br>たくさんのご注文ありがとうございました。</p>
+  </div>
+
+  <div class="deadline-banner" id="deadlineBanner">
     <div class="label">事前受付 締切</div>
     <div class="date">9月1日（火）20:00 まで</div>
   </div>
@@ -417,6 +440,10 @@
    ★設定（まずはここだけ確認・編集してください）
 ============================================================= */
 const CONFIG = {
+  // 受付中は true、受付を締め切ったら false にしてください。
+  // 来年また使うときは true に戻すだけでOKです。
+  ACCEPTING_ORDERS: false,
+
   // Googleフォーム経由ではなく、Google Apps Script（GAS）で
   // 注文データをスプレッドシートに送ります。
   // 下記手順で発行したウェブアプリのURLをここに貼ってください。
@@ -439,6 +466,32 @@ const CONFIG = {
    ここから下は基本的に編集不要です
 ============================================================= */
 
+// 受付終了表示の切り替え
+if (!CONFIG.ACCEPTING_ORDERS) {
+  document.body.classList.add('is-closed');
+  document.getElementById('closedBanner').style.display = 'block';
+  document.getElementById('deadlineBanner').style.display = 'none';
+
+  document.getElementById('sizeSelect').disabled = true;
+  document.getElementById('qtyInput').disabled = true;
+  document.getElementById('nameInput').disabled = true;
+  document.getElementById('contactInput').disabled = true;
+  document.getElementById('noteInput').disabled = true;
+
+  const addBtnEl = document.getElementById('addBtn');
+  addBtnEl.disabled = true;
+  addBtnEl.textContent = '受付は終了しました';
+
+  const submitBtnEl = document.getElementById('submitBtn');
+  submitBtnEl.disabled = true;
+  submitBtnEl.textContent = '受付は終了しました';
+
+  document.querySelectorAll('.color-opt').forEach(el=>{
+    el.style.pointerEvents = 'none';
+    el.style.opacity = '.5';
+  });
+}
+
 // サイズのプルダウンを生成
 const sizeSelect = document.getElementById('sizeSelect');
 CONFIG.SIZES.forEach(s=>{
@@ -451,6 +504,7 @@ CONFIG.SIZES.forEach(s=>{
 let selectedColor = "ナチュラル";
 document.querySelectorAll('.color-opt').forEach(el=>{
   el.addEventListener('click', ()=>{
+    if(!CONFIG.ACCEPTING_ORDERS) return;
     document.querySelectorAll('.color-opt').forEach(o=>o.classList.remove('selected'));
     el.classList.add('selected');
     selectedColor = el.dataset.color;
@@ -500,6 +554,7 @@ function renderCart(){
 }
 
 document.getElementById('addBtn').addEventListener('click', ()=>{
+  if(!CONFIG.ACCEPTING_ORDERS) return;
   const size = sizeSelect.value;
   const qty = Math.max(1, Math.min(20, Number(document.getElementById('qtyInput').value) || 1));
   if(!size){
@@ -525,6 +580,7 @@ function clearError(){ errorBox.style.display = "none"; }
 // 送信
 const submitBtn = document.getElementById('submitBtn');
 submitBtn.addEventListener('click', async ()=>{
+  if(!CONFIG.ACCEPTING_ORDERS) return;
   clearError();
   const name = document.getElementById('nameInput').value.trim();
   const contact = document.getElementById('contactInput').value.trim();
